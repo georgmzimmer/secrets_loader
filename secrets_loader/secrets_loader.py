@@ -6,8 +6,8 @@ import json
 import os
 import sys
 
-from utils.aws import get_aws_vars, get_missing_vars, get_aws_account
-from utils.secrets import get_secret, mask_secret
+from .utils.aws import get_aws_vars, get_missing_vars, get_aws_account
+from .utils.secrets import get_secret, mask_secret
 
 def main():
     if len(sys.argv) < 3:
@@ -67,4 +67,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
