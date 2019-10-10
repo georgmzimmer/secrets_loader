@@ -12,5 +12,5 @@ setup(
     long_description=open("README.md").read(),
     python_requires='>=3.6',
     install_requires=['boto3==1.9.246', 'botocore==1.12.246'],
-    entry_points={'console_scripts': ['secrets_loader = secrets_loader.__main__:main', ]},
+    entry_points={'console_scripts': ['secrets_loader = secrets_loader:main', ]},
 )
