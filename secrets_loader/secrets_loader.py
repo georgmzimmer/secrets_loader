@@ -64,3 +64,7 @@ def main():
         print(f'Trying to run "{run_command}" with arguments {run_args[1:]}')
         print(str(e))
         sys.exit(-1)
+
+if __name__ == "__main__":
+    main()
+    
