@@ -1,6 +1,6 @@
 # Install
 
-    pip install https://github.com/georgmzimmer/secrets_loader/tree/v0.9
+    pip install git+https://github.com/georgmzimmer/secrets_loader.git@v0.9
 
 ## Usage: 
 
