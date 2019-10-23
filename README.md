@@ -11,7 +11,7 @@
   * [arguments] are optional arguments to your program.  
 
 ### Example: 
-    ./secrets_loader SOME_API_STAGING /usr/bin/env
+    ./secrets_loader SOME_API /usr/bin/env
   
 ### You must have the following environment variables defined:
    **AWS_SECRETS_NAME** - the name of the secret in AWS secrets manager
