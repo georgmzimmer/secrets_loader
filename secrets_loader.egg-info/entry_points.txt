@@ -1,0 +1,3 @@
+[console_scripts]
+secrets_loader = secrets_loader.secrets_loader:main
+
