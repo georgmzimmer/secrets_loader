@@ -9,6 +9,7 @@ import sys
 from .utils.aws import get_aws_vars, get_missing_vars, get_aws_account
 from .utils.secrets import get_secret, mask_secret
 
+
 def main():
     if len(sys.argv) < 3:
         print(
@@ -64,6 +65,7 @@ def main():
         print(f'Trying to run "{run_command}" with arguments {run_args[1:]}')
         print(str(e))
         sys.exit(-1)
+
 
 if __name__ == "__main__":
     main()
