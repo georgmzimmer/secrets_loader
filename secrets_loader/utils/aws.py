@@ -34,7 +34,7 @@ def get_session():
 
 def get_aws_vars():
     session = get_session()
-    credentials = session.get_credentials()
+    credentials = session.get_credentials() # TODO figure out where session got it's configuration and print that instead of just env vars.
     return {
         "AWS_ACCESS_KEY_ID": os.getenv("AWS_ACCESS_KEY_ID"),
         "AWS_SECRET_ACCESS_KEY": os.getenv("AWS_SECRET_ACCESS_KEY"),
