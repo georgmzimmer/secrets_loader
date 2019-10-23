@@ -11,12 +11,12 @@ def get_missing_vars(aws):
     """
     return a list of missing required env vars if any
     """
-    required = ["AWS_SECRETS_NAME", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+    required = ["AWS_SECRETS_NAME", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION"]
     return [f'Missing env variable "{v}"' for v in required if aws.get(v, None) is None]
 
 
 def get_session():
-    # use the session so this will work locally with ~/.aws/config
+    # use the session so this will work locally with ~/.aws/config or aws machine role
     if (
         os.getenv("AWS_ACCESS_KEY_ID")
         and os.getenv("AWS_SECRET_ACCESS_KEY")
