@@ -36,8 +36,7 @@ Secrets loader will create the DB_HOST, DB_USER, DB_PASSWORD environment variabl
    
    **AWS_SECRET_ACCESS_KEY** - your aws secret key
    
-### "Optional" environment variables:   
-   **AWS_DEFAULT_REGION** - defaults to us-east-1
+   **AWS_DEFAULT_REGION** - the region where your secrets are stored.
    
    
 
