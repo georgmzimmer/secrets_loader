@@ -20,7 +20,7 @@ def main():
             "[program] is the program you wish to run\n"
             "[arguments] are optional program arguments\n\n"
             "You must have the following environment variables defined:\n"
-            "    AWS_SECRETS_NAME, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY\n"
+            "    AWS_SECRETS_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY\n"
             "    AWS_SECRETS_NAME is the name of the secrets blob you're interested in.\n"
         )
         sys.exit(-1)
@@ -43,7 +43,7 @@ def main():
         print(
             f"\nUsing the following:\n"
             f"AWS_SECRETS_NAME={aws['AWS_SECRETS_NAME']}\n"
-            f"AWS_ACCESS_KEY={aws['AWS_ACCESS_KEY']}\n"
+            f"AWS_ACCESS_KEY_ID={aws['AWS_ACCESS_KEY_ID']}\n"
             f"AWS_SECRET_ACCESS_KEY={mask_secret(aws['AWS_SECRET_ACCESS_KEY'])}\n"
             f"AWS_DEFAULT_REGION={aws['AWS_DEFAULT_REGION']}\n"
         )
