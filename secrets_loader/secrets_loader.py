@@ -36,7 +36,7 @@ def main():
         sys.exit(-1)
 
     secrets, error = get_secret(
-        aws.get("AWS_SECRETS_NAME"), region_name=aws.get("AWS_DEFAULT_REGION")
+        aws.get("AWS_SECRETS_NAME"), region_name=aws.get("AWS_DEFAULT_REGION", "us-east-1")
     )
     if error:
         print(f"\n{error}")

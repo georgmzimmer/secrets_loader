@@ -15,7 +15,6 @@ def get_missing_vars(aws):
         "AWS_SECRETS_NAME",
         "AWS_ACCESS_KEY",
         "AWS_SECRET_ACCESS_KEY",
-        "AWS_DEFAULT_REGION",
     ]
     return [f'Missing env variable "{v}"' for v in required if aws.get(v, None) is None]
 
