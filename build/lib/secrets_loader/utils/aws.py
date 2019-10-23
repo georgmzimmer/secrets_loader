@@ -3,28 +3,34 @@ aws functions
 """
 import os
 
-from boto3 import Session
 import botocore
+from boto3 import Session
 
 
 def get_missing_vars(aws):
     """
     return a list of missing required env vars if any
     """
-    required = [
-        "AWS_SECRETS_NAME",
-        "AWS_ACCESS_KEY",
-        "AWS_SECRET_ACCESS_KEY",
-    ]
+    required = ["AWS_SECRETS_NAME", "AWS_ACCESS_KEY", "AWS_SECRET_ACCESS_KEY"]
     return [f'Missing env variable "{v}"' for v in required if aws.get(v, None) is None]
+
 
 def get_session():
     # use the session so this will work locally with ~/.aws/config
-    if os.getenv("AWS_ACCESS_KEY") and os.getenv("AWS_SECRET_ACCESS_KEY") and os.getenv("AWS_SECRET_ACCESS_KEY"):
-        session = Session(os.getenv("AWS_ACCESS_KEY"), os.getenv("AWS_SECRET_ACCESS_KEY"), os.getenv("AWS_SECRET_ACCESS_KEY"))
+    if (
+        os.getenv("AWS_ACCESS_KEY")
+        and os.getenv("AWS_SECRET_ACCESS_KEY")
+        and os.getenv("AWS_DEFAULT_REGION")
+    ):
+        session = Session(
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY"),
+            aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+            region_name=os.getenv("AWS_DEFAULT_REGION"),
+        )
     else:
         session = Session()
     return session
+
 
 def get_aws_vars():
     session = get_session()
