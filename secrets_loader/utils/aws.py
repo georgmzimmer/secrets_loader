@@ -18,10 +18,16 @@ def get_missing_vars(aws):
     ]
     return [f'Missing env variable "{v}"' for v in required if aws.get(v, None) is None]
 
+def get_session():
+    # use the session so this will work locally with ~/.aws/config
+    if os.getenv("AWS_ACCESS_KEY") and os.getenv("AWS_SECRET_ACCESS_KEY") and os.getenv("AWS_SECRET_ACCESS_KEY"):
+        session = Session(os.getenv("AWS_ACCESS_KEY"), os.getenv("AWS_SECRET_ACCESS_KEY"), os.getenv("AWS_SECRET_ACCESS_KEY"))
+    else:
+        session = Session()
+    return session
 
 def get_aws_vars():
-    # use the session so this will work locally with ~/.aws/config
-    session = Session()
+    session = get_session()
     credentials = session.get_credentials()
     return {
         "AWS_ACCESS_KEY": getattr(credentials, "access_key") if credentials else None,
@@ -34,7 +40,7 @@ def get_aws_vars():
 
 
 def get_aws_account():
-    session = Session()
+    session = get_session()
     sts_client = session.client(service_name="sts")
     org_client = session.client(service_name="organizations")
     try:

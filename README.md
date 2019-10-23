@@ -30,7 +30,7 @@
   }
 }
 ~~~
-Secrets loader will create the DB_HOST, DB_USER, DB_PASSWORD environment variables for you that are contained within the "SOME_API" JSON.
+Secrets loader will create the DB_HOST, DB_USER, DB_PASSWORD environment variables for you that are contained within the "SOME_API" JSON, and chain-load your program with those variables in your environment.
 
    **AWS_ACCESS_KEY** - your aws access key
    

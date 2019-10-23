@@ -5,9 +5,8 @@ from botocore.exceptions import ClientError
 
 
 # this function tweaked from aws secretsmanager template
-def get_secret(secret_name, region_name="us-east-1"):
+def get_secret(secret_name, session):
     # Create a Secrets Manager client
-    session = boto3.session.Session()
     client = session.client(service_name="secretsmanager", region_name=region_name)
 
     secret = None

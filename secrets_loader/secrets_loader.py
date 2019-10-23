@@ -6,7 +6,7 @@ import json
 import os
 import sys
 
-from .utils.aws import get_aws_vars, get_missing_vars, get_aws_account
+from .utils.aws import get_aws_vars, get_missing_vars, get_aws_account, get_session
 from .utils.secrets import get_secret, mask_secret
 
 
@@ -36,7 +36,7 @@ def main():
         sys.exit(-1)
 
     secrets, error = get_secret(
-        aws.get("AWS_SECRETS_NAME"), region_name=aws.get("AWS_DEFAULT_REGION")
+        aws.get("AWS_SECRETS_NAME"), get_session()
     )
     if error:
         print(f"\n{error}")
