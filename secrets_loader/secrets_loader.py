@@ -60,7 +60,7 @@ def main():
             os.environ[secret] = secrets[secret]
 
     try:
-        os.execl(run_command, *run_args)
+        os.execlp(run_command, *run_args)
     except Exception as e:
         print(f'Trying to run "{run_command}" with arguments {run_args[1:]}')
         print(str(e))
