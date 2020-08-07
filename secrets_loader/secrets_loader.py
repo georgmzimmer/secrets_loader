@@ -57,7 +57,10 @@ def main():
             print(f'Warning: no secrets defined for config name "{config_name}"')
 
         for secret in secrets:
-            os.environ[secret] = secrets[secret]
+            if isinstance(secrets[secret],dict):
+                os.environ[secret] = json.dumps(secret[secret])
+            else:
+                os.environ[secret] = secrets[secret]
 
     try:
         os.execl(run_command, *run_args)
