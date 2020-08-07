@@ -3,39 +3,48 @@ aws functions
 """
 import os
 
-from boto3 import Session
 import botocore
+from boto3 import Session
 
 
 def get_missing_vars(aws):
     """
     return a list of missing required env vars if any
     """
-    required = [
-        "AWS_SECRETS_NAME",
-        "AWS_ACCESS_KEY",
-        "AWS_SECRET_ACCESS_KEY",
-        "AWS_DEFAULT_REGION",
-    ]
+    required = ["AWS_SECRETS_NAME", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION"]
     return [f'Missing env variable "{v}"' for v in required if aws.get(v, None) is None]
 
 
+def get_session():
+    # use the session so this will work locally with ~/.aws/config or aws machine role
+    if (
+        os.getenv("AWS_ACCESS_KEY_ID")
+        and os.getenv("AWS_SECRET_ACCESS_KEY")
+        and os.getenv("AWS_DEFAULT_REGION")
+    ):
+        session = Session(
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+            region_name=os.getenv("AWS_DEFAULT_REGION"),
+        )
+    else:
+        session = Session()
+    return session
+
+
 def get_aws_vars():
-    # use the session so this will work locally with ~/.aws/config
-    session = Session()
-    credentials = session.get_credentials()
+    session = get_session()
+    credentials = session.get_credentials() # TODO figure out where session got it's configuration and print that instead of just env vars.
     return {
-        "AWS_ACCESS_KEY": getattr(credentials, "access_key") if credentials else None,
-        "AWS_SECRET_ACCESS_KEY": getattr(credentials, "secret_key")
-        if credentials
-        else None,
-        "AWS_DEFAULT_REGION": session.region_name,
+        "AWS_ACCESS_KEY_ID": os.getenv("AWS_ACCESS_KEY_ID"),
+        "AWS_SECRET_ACCESS_KEY": os.getenv("AWS_SECRET_ACCESS_KEY"),
+        "AWS_DEFAULT_REGION": os.getenv("AWS_DEFAULT_REGION"),
         "AWS_SECRETS_NAME": os.environ.get("AWS_SECRETS_NAME"),
     }
 
 
 def get_aws_account():
-    session = Session()
+    session = get_session()
     sts_client = session.client(service_name="sts")
     org_client = session.client(service_name="organizations")
     try:

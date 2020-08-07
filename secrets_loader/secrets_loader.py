@@ -6,7 +6,7 @@ import json
 import os
 import sys
 
-from .utils.aws import get_aws_vars, get_missing_vars, get_aws_account
+from .utils.aws import get_aws_vars, get_missing_vars, get_aws_account, get_session
 from .utils.secrets import get_secret, mask_secret
 
 
@@ -20,7 +20,7 @@ def main():
             "[program] is the program you wish to run\n"
             "[arguments] are optional program arguments\n\n"
             "You must have the following environment variables defined:\n"
-            "    AWS_SECRETS_NAME, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY\n"
+            "    AWS_SECRETS_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY\n"
             "    AWS_SECRETS_NAME is the name of the secrets blob you're interested in.\n"
         )
         sys.exit(-1)
@@ -36,14 +36,14 @@ def main():
         sys.exit(-1)
 
     secrets, error = get_secret(
-        aws.get("AWS_SECRETS_NAME"), region_name=aws.get("AWS_DEFAULT_REGION")
+        aws.get("AWS_SECRETS_NAME"), get_session()
     )
     if error:
         print(f"\n{error}")
         print(
             f"\nUsing the following:\n"
             f"AWS_SECRETS_NAME={aws['AWS_SECRETS_NAME']}\n"
-            f"AWS_ACCESS_KEY={aws['AWS_ACCESS_KEY']}\n"
+            f"AWS_ACCESS_KEY_ID={aws['AWS_ACCESS_KEY_ID']}\n"
             f"AWS_SECRET_ACCESS_KEY={mask_secret(aws['AWS_SECRET_ACCESS_KEY'])}\n"
             f"AWS_DEFAULT_REGION={aws['AWS_DEFAULT_REGION']}\n"
         )
@@ -63,7 +63,7 @@ def main():
                 os.environ[secret] = secrets[secret]
 
     try:
-        os.execl(run_command, *run_args)
+        os.execlp(run_command, *run_args)
     except Exception as e:
         print(f'Trying to run "{run_command}" with arguments {run_args[1:]}')
         print(str(e))

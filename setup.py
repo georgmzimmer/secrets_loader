@@ -7,7 +7,7 @@ setup(
     author_email="devs@worthwhile.com",
     packages=find_packages(),
     include_package_data=True,  # declarations in MANIFEST.in
-    license="LICENSE.txt",
+    license="LICENSE",
     description="Chain Loader for AWS secrets manager secrets.",
     long_description=open("README.md").read(),
     python_requires='>=3.6',
