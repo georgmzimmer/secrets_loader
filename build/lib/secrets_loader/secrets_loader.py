@@ -9,6 +9,7 @@ import sys
 from .utils.aws import get_aws_vars, get_missing_vars, get_aws_account
 from .utils.secrets import get_secret, mask_secret
 
+
 def main():
     if len(sys.argv) < 3:
         print(
@@ -56,7 +57,10 @@ def main():
             print(f'Warning: no secrets defined for config name "{config_name}"')
 
         for secret in secrets:
-            os.environ[secret] = secrets[secret]
+            if isinstance(secrets[secret],dict):
+                os.environ[secret] = json.dumps(secret[secret])
+            else:
+                os.environ[secret] = secrets[secret]
 
     try:
         os.execl(run_command, *run_args)
@@ -64,6 +68,7 @@ def main():
         print(f'Trying to run "{run_command}" with arguments {run_args[1:]}')
         print(str(e))
         sys.exit(-1)
+
 
 if __name__ == "__main__":
     main()

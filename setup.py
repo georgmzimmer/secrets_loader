@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="secrets_loader",
-    version="0.1.1",
+    version="0.1.2",
     author="Worthwhile",
     author_email="devs@worthwhile.com",
     packages=find_packages(),
