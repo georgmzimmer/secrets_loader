@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="secrets_loader",
-    version="0.1.2",
+    version="0.1.3",
     author="Worthwhile",
     author_email="devs@worthwhile.com",
     packages=find_packages(),
@@ -11,6 +11,6 @@ setup(
     description="Chain Loader for AWS secrets manager secrets.",
     long_description=open("README.md").read(),
     python_requires='>=3.6',
-    install_requires=['boto3==*', 'botocore==*'],
+    install_requires=['boto3', 'botocore'],
     entry_points={'console_scripts': ['secrets_loader = secrets_loader.secrets_loader:main', ]},
 )
