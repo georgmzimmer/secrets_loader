@@ -2,11 +2,12 @@
 """
 This populates environment variables from amazon secrets store and chain loads another program.
 """
-import json
 import os
 import sys
 
-from .utils.aws import get_aws_vars, get_missing_vars, get_aws_account, get_session
+import json
+
+from .utils.aws import get_aws_account, get_aws_vars, get_missing_vars, get_session
 from .utils.secrets import get_secret, mask_secret
 
 
@@ -35,9 +36,7 @@ def main():
         print("\n".join(get_missing_vars(aws)))
         sys.exit(-1)
 
-    secrets, error = get_secret(
-        aws.get("AWS_SECRETS_NAME"), get_session()
-    )
+    secrets, error = get_secret(aws.get("AWS_SECRETS_NAME"), get_session())
     if error:
         print(f"\n{error}")
         print(
@@ -57,10 +56,10 @@ def main():
             print(f'Warning: no secrets defined for config name "{config_name}"')
 
         for secret in secrets:
-            if isinstance(secrets[secret],dict):
-                os.environ[secret] = json.dumps(secret[secret])
-            else:
-                os.environ[secret] = secrets[secret]
+            value = secrets[secret]
+            if isinstance(value, dict):
+                value = json.dumps(value)
+            os.environ[secret] = value
 
     try:
         os.execlp(run_command, *run_args)
