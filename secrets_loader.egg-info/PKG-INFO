@@ -1,6 +1,6 @@
 Metadata-Version: 1.2
 Name: secrets-loader
-Version: 0.1
+Version: 0.1.2
 Summary: Chain Loader for AWS secrets manager secrets.
 Home-page: UNKNOWN
 Author: Worthwhile
@@ -8,7 +8,8 @@ Author-email: devs@worthwhile.com
 License: LICENSE
 Description: # Install
         
-            pip install git+https://github.com/georgmzimmer/secrets_loader.git@v0.9
+
+            pip install git+ssh://git@gitlab.worthwhile.com/twc/secrets_loader.git@v0.2
         
         ## Usage: 
         
@@ -19,7 +20,8 @@ Description: # Install
           * [arguments] are optional arguments to your program.  
         
         ### Example: 
-            ./secrets_loader SOME_API /usr/bin/env
+
+            ./secrets_loader SOME_API_STAGING /usr/bin/env
           
         ### You must have the following environment variables defined:
            **AWS_SECRETS_NAME** - the name of the secret in AWS secrets manager
@@ -45,7 +47,6 @@ Description: # Install
            **AWS_SECRET_ACCESS_KEY** - your aws secret key
            
            **AWS_DEFAULT_REGION** - the region where your secrets are stored.
-           
            
         
         
