@@ -11,6 +11,6 @@ setup(
     description="Chain Loader for AWS secrets manager secrets.",
     long_description=open("README.md").read(),
     python_requires='>=3.6',
-    install_requires=['boto3==*', 'botocore==*'],
+    install_requires=['boto3', 'botocore'],
     entry_points={'console_scripts': ['secrets_loader = secrets_loader.secrets_loader:main', ]},
 )
